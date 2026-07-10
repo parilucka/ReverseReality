@@ -1,0 +1,1421 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reverse Reality | PERNICA &amp; Co., advokátní kancelář, s.r.o.</title>
+  <meta name="description" content="Reverse Reality je právní doprovod při prodeji a koupi nemovitosti. Advokát na straně klienta, férové smlouvy, bezpečná úschova a realitní transakce bez copy-paste rizik." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --petrol: #38474E;
+      --petrol-dark: #2A363C;
+      --petrol-deep: #20292E;
+      --sand: #D8C8B6;
+      --sand-light: #EFE9E2;
+      --sand-soft: #F8F4EF;
+      --black: #1F1D1E;
+      --white: #ffffff;
+      --muted: rgba(255,255,255,.74);
+      --line: rgba(216,200,182,.34);
+      --shadow: 0 24px 68px rgba(0,0,0,.25);
+      --radius: 8px;
+      --font: "Manrope", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: var(--font);
+      color: var(--white);
+      background: var(--petrol);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("assets/contour-texture.svg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: .16;
+      mix-blend-mode: normal;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto 0 0 0;
+      height: 42%;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(32,41,46,0), rgba(32,41,46,.58));
+    }
+
+    a { color: inherit; }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1440px, 100%);
+      height: 100svh;
+      margin: 0 auto;
+      padding: clamp(18px, 2.4vw, 36px);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: clamp(14px, 1.7vw, 24px);
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: clamp(18px, 2.4vw, 34px);
+      min-height: 58px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-width: 290px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      height: 38px;
+      width: auto;
+      display: block;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(216,200,182,.58);
+    }
+
+    .brand-name {
+      line-height: 1.08;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .brand-name span {
+      display: block;
+      color: var(--sand);
+      font-size: 11px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: flex-end;
+      justify-self: end;
+      gap: clamp(15px, 1.5vw, 24px);
+      padding: 0;
+      border: 0;
+      background: transparent;
+      border-radius: 0;
+    }
+
+    .tab {
+      position: relative;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: rgba(255,255,255,.74);
+      border-radius: 0;
+      padding: 9px 0;
+      font: 600 13px/1 var(--font);
+      cursor: pointer;
+      transition: .2s ease;
+      white-space: nowrap;
+    }
+
+    .tab::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: var(--sand);
+      opacity: 0;
+      transform: scaleX(.55);
+      transform-origin: left center;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .tab:hover {
+      color: var(--white);
+      background: transparent;
+    }
+
+    .tab.active {
+      color: var(--sand);
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .tab.active::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .contact-small {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 43px;
+      padding: 0 18px;
+      border-radius: 4px;
+      background: var(--sand-light);
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      white-space: nowrap;
+      box-shadow: 0 10px 28px rgba(0,0,0,.18);
+      justify-self: end;
+    }
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      display: inline-block;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .contact-small .icon,
+    .btn .icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .stage {
+      min-height: 0;
+      border: 1px solid rgba(216,200,182,.28);
+      border-radius: var(--radius);
+      background: rgba(32,41,46,.88);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .stage::before {
+      content: none;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .panel {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: clamp(18px, 3vw, 44px);
+      padding: clamp(26px, 4vw, 62px);
+      align-items: center;
+      opacity: 0;
+      transform: translateY(14px);
+      pointer-events: none;
+      transition: opacity .28s ease, transform .28s ease;
+    }
+
+    .panel.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .eyebrow {
+      color: var(--sand);
+      font-size: clamp(11px, .92vw, 13px);
+      font-weight: 800;
+      letter-spacing: 0;
+      margin: 0 0 18px;
+    }
+
+    h1, h2 {
+      margin: 0;
+      letter-spacing: 0;
+      line-height: .98;
+      font-weight: 300;
+    }
+
+    h1 {
+      font-size: clamp(48px, 7.4vw, 118px);
+    }
+
+    h2 {
+      font-size: clamp(38px, 5.2vw, 76px);
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 26px 0 0;
+      color: rgba(255,255,255,.84);
+      font-size: clamp(18px, 1.45vw, 24px);
+      line-height: 1.45;
+      font-weight: 300;
+    }
+
+    .text {
+      max-width: 700px;
+      color: rgba(255,255,255,.76);
+      font-size: clamp(15px, 1.08vw, 18px);
+      line-height: 1.62;
+      margin: 22px 0 0;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 4px;
+      border: 1px solid rgba(216,200,182,.36);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .btn-primary { background: var(--sand); color: var(--black); border-color: var(--sand); }
+    .btn-secondary { background: rgba(255,255,255,.04); color: var(--white); }
+    .btn:hover { transform: translateY(-1px); }
+
+    .visual-card {
+      position: relative;
+      min-height: min(520px, 58vh);
+      border-radius: 8px;
+      background: var(--sand-light);
+      color: var(--black);
+      padding: clamp(24px, 3vw, 42px);
+      box-shadow: 0 28px 70px rgba(0,0,0,.28);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.18);
+    }
+
+    .visual-card::before {
+      content: none;
+      position: absolute;
+      right: -18px;
+      bottom: -34px;
+      font-weight: 300;
+      font-size: clamp(120px, 17vw, 238px);
+      letter-spacing: 0;
+      color: rgba(56,71,78,.12);
+      line-height: .8;
+      z-index: 1;
+    }
+
+    .visual-card::after {
+      content: "";
+      position: absolute;
+      width: 46%;
+      height: 1px;
+      right: 28px;
+      top: 40px;
+      background: rgba(56,71,78,.22);
+      z-index: 2;
+    }
+
+    .card-photo {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 58%;
+      height: 42%;
+      margin: 0;
+      overflow: hidden;
+      opacity: .34;
+      z-index: 0;
+    }
+
+    .card-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, var(--sand-light), rgba(239,233,226,.14) 58%, rgba(239,233,226,0)),
+        linear-gradient(180deg, rgba(239,233,226,0), var(--sand-light));
+    }
+
+    .card-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(.9) contrast(.95);
+    }
+
+    .card-label {
+      color: var(--petrol);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      font-weight: 700;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .card-title {
+      max-width: 430px;
+      font-size: clamp(29px, 3.2vw, 50px);
+      line-height: 1.08;
+      font-weight: 300;
+      position: relative;
+      z-index: 3;
+    }
+
+    .card-text {
+      max-width: 420px;
+      position: relative;
+      z-index: 3;
+      margin-top: 22px;
+      color: rgba(31,29,30,.76);
+      font-size: clamp(15px, 1vw, 17px);
+      line-height: 1.55;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 30px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .mini-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid rgba(56,71,78,.18);
+      padding-top: 12px;
+      color: rgba(31,29,30,.78);
+      font-weight: 600;
+    }
+
+    .mini-icon {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      color: var(--petrol);
+      flex: 0 0 auto;
+    }
+
+    .mini-icon .icon { width: 17px; height: 17px; }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .tile {
+      min-height: 150px;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid rgba(216,200,182,.26);
+      background: rgba(255,255,255,.055);
+      backdrop-filter: blur(16px);
+    }
+
+    .tile-icon {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      color: var(--sand);
+      margin-bottom: 18px;
+      opacity: .86;
+    }
+
+    .tile-icon .icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .tile strong {
+      display: block;
+      color: var(--sand);
+      font-size: 15px;
+      margin-bottom: 11px;
+      font-weight: 700;
+    }
+
+    .tile p {
+      margin: 0;
+      color: rgba(255,255,255,.76);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .service {
+      min-height: 300px;
+      border-radius: 8px;
+      padding: 26px;
+      color: var(--black);
+      background: var(--sand-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 18px 42px rgba(0,0,0,.16);
+    }
+
+    .service:nth-child(2) { background: var(--sand); }
+    .service:nth-child(3) { background: var(--white); }
+
+    .service-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      color: var(--petrol);
+      border: 1px solid rgba(56,71,78,.22);
+      border-radius: 4px;
+      margin-bottom: 22px;
+    }
+
+    .service-icon .icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .service h3 {
+      margin: 0 0 14px;
+      color: var(--petrol);
+      font-size: clamp(22px, 1.9vw, 31px);
+      line-height: 1.08;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    .service p {
+      margin: 0;
+      color: rgba(31,29,30,.74);
+      line-height: 1.48;
+      font-size: 15px;
+    }
+
+    .service .number {
+      margin-top: 24px;
+      font-size: 46px;
+      font-weight: 300;
+      letter-spacing: 0;
+      color: rgba(56,71,78,.28);
+    }
+
+    .offers-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: start;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    #nabidky.panel {
+      display: block;
+      overflow-y: auto;
+      align-content: start;
+      padding: clamp(24px, 3.6vw, 52px);
+      scrollbar-color: rgba(216,200,182,.46) transparent;
+      scrollbar-width: thin;
+    }
+
+    .offers-intro {
+      display: grid;
+      grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .offers-intro h2 {
+      font-size: clamp(34px, 4.4vw, 68px);
+    }
+
+    .offers-intro .text {
+      margin-top: 0;
+      max-width: 620px;
+    }
+
+    .offer-section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 20px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(216,200,182,.24);
+    }
+
+    .offer-section-title h3 {
+      margin: 0;
+      color: var(--sand);
+      font-size: clamp(22px, 2vw, 31px);
+      line-height: 1.08;
+    }
+
+    .offer-section-title p {
+      max-width: 520px;
+      margin: 0;
+      color: rgba(255,255,255,.66);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .offer-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .offer-card,
+    .offer-form {
+      border-radius: 8px;
+      border: 1px solid rgba(216,200,182,.24);
+      background: rgba(255,255,255,.055);
+      padding: 24px;
+    }
+
+    .offer-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 300px;
+    }
+
+    .offer-card h3,
+    .offer-form h3 {
+      margin: 0;
+      color: var(--sand);
+      font-size: clamp(22px, 1.8vw, 30px);
+      line-height: 1.08;
+      font-weight: 700;
+    }
+
+    .offer-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .offer-tag {
+      border: 1px solid rgba(216,200,182,.26);
+      border-radius: 4px;
+      padding: 7px 10px;
+      color: rgba(255,255,255,.76);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .offer-card p,
+    .offer-form p {
+      margin: 0;
+      color: rgba(255,255,255,.76);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .offer-note {
+      border-top: 1px solid rgba(216,200,182,.24);
+      padding-top: 14px;
+      color: rgba(255,255,255,.66);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .offer-form {
+      background: var(--sand-soft);
+      color: var(--black);
+      scroll-margin-top: 24px;
+    }
+
+    .offer-form h3 {
+      color: var(--petrol);
+      margin-bottom: 8px;
+    }
+
+    .offer-form p {
+      color: rgba(31,29,30,.66);
+      margin-bottom: 16px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field-wide {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: rgba(31,29,30,.72);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(56,71,78,.18);
+      border-radius: 4px;
+      background: rgba(255,255,255,.72);
+      color: var(--black);
+      font: 500 13px/1.25 var(--font);
+      padding: 10px 11px;
+      outline: 0;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(56,71,78,.5);
+      box-shadow: 0 0 0 2px rgba(56,71,78,.08);
+    }
+
+    .form-submit {
+      margin-top: 12px;
+      width: 100%;
+      border: 0;
+      background: var(--petrol);
+      color: var(--white);
+    }
+
+    .offer-action {
+      width: 100%;
+      min-height: 44px;
+      margin-top: 16px;
+      border-color: rgba(216,200,182,.42);
+      color: var(--white);
+      background: rgba(255,255,255,.035);
+    }
+
+    .flow {
+      display: grid;
+      gap: 10px;
+      counter-reset: step;
+    }
+
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 16px;
+      align-items: center;
+      border-radius: 8px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(216,200,182,.24);
+      padding: 16px;
+    }
+
+    .step::before {
+      content: counter(step, decimal-leading-zero);
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      background: var(--sand);
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--white);
+    }
+
+    .step span {
+      color: rgba(255,255,255,.72);
+      line-height: 1.4;
+      font-size: 14px;
+    }
+
+    .quote-box {
+      border-radius: 8px;
+      background: var(--sand-light);
+      color: var(--black);
+      padding: clamp(26px, 3vw, 46px);
+      box-shadow: 0 28px 70px rgba(0,0,0,.22);
+    }
+
+    .quote-box p {
+      margin: 0;
+      font-size: clamp(25px, 3vw, 45px);
+      line-height: 1.12;
+      font-weight: 300;
+      color: var(--petrol);
+    }
+
+    .quote-box small {
+      display: block;
+      margin-top: 24px;
+      color: rgba(31,29,30,.62);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .contact-card {
+      border-radius: 8px;
+      background: var(--sand-soft);
+      color: var(--black);
+      padding: 22px 24px;
+      min-height: 0;
+    }
+
+    .contact-card.dark {
+      background: rgba(255,255,255,.075);
+      color: var(--white);
+      border: 1px solid rgba(216,200,182,.24);
+    }
+
+    .contact-card h3 {
+      margin: 0 0 18px;
+      color: var(--petrol);
+      font-size: 22px;
+      line-height: 1.22;
+      letter-spacing: 0;
+    }
+
+    .contact-card .office-name {
+      max-width: none;
+    }
+
+    .contact-heading {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .contact-heading h3 {
+      margin: 0;
+    }
+
+    .contact-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: var(--petrol);
+      border: 1px solid rgba(56,71,78,.2);
+      border-radius: 4px;
+    }
+
+    .contact-card.dark .contact-icon {
+      color: var(--sand);
+      border-color: rgba(216,200,182,.32);
+    }
+
+    .contact-card.dark h3 { color: var(--sand); }
+
+    .contact-card p, .contact-card a {
+      color: inherit;
+      margin: 0 0 10px;
+      line-height: 1.5;
+      text-decoration: none;
+    }
+
+    .contact-card a { font-weight: 800; }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+    }
+
+    .footer strong { color: var(--sand); }
+
+    @media (max-width: 1040px) {
+      .topbar { grid-template-columns: 1fr; gap: 12px; }
+      .brand { min-width: auto; justify-content: center; }
+      .contact-small { display: none; }
+      .tabs { justify-content: flex-start; overflow: hidden; }
+      .panel {
+        grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+        gap: 18px;
+        padding: clamp(22px, 3vw, 34px);
+      }
+      .visual-card { min-height: 360px; }
+      .services { grid-template-columns: 1fr; }
+      .service { min-height: auto; }
+      .service-icon { display: none; }
+      .offers-layout { grid-template-columns: 1fr; }
+      .offers-intro { grid-template-columns: 1fr; align-items: start; }
+      .offer-section-title { align-items: start; flex-direction: column; }
+      .offer-list { grid-template-columns: 1fr; }
+      .offer-card { min-height: auto; }
+      .contact-panel { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        grid-template-rows: auto 1fr;
+        padding: 14px;
+        gap: 8px;
+      }
+      .topbar {
+        gap: 8px;
+        min-height: 0;
+      }
+      .brand {
+        justify-content: flex-start;
+        gap: 12px;
+      }
+      .brand img { height: 34px; }
+      .brand-divider { display: none; }
+      .brand-name { font-size: 15px; }
+      .brand-name span { display: none; }
+      .tabs {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        width: 100%;
+        padding: 0;
+        gap: 6px;
+        overflow: visible;
+      }
+      .tab { padding: 8px 0; font-size: 9.5px; }
+      .stage { border-radius: 8px; }
+      .panel {
+        grid-template-columns: 1fr;
+        align-content: center;
+        padding: 18px;
+        gap: 12px;
+      }
+      .eyebrow {
+        font-size: 10px;
+        margin-bottom: 10px;
+      }
+      h1 { font-size: 42px; }
+      h2 {
+        font-size: 30px;
+        line-height: 1.08;
+      }
+      .lead { margin-top: 16px; }
+      .lead {
+        font-size: 15px;
+        line-height: 1.36;
+      }
+      .text {
+        margin-top: 12px;
+        font-size: 12.5px;
+        line-height: 1.38;
+      }
+      .actions {
+        gap: 8px;
+        margin-top: 14px;
+      }
+      .btn {
+        min-height: 42px;
+        padding: 0 12px;
+        font-size: 12px;
+      }
+      .visual-card, .quote-box, .contact-card { border-radius: 8px; padding: 22px; }
+      .visual-card { display: none; }
+      .tiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .tile {
+        min-height: 62px;
+        padding: 12px;
+      }
+      .tile-icon { display: none; }
+      .tile strong {
+        font-size: 13px;
+        margin-bottom: 0;
+      }
+      .tile p,
+      #proc .text + .text,
+      #nabidky .text + .text,
+      #sluzby .text,
+      #postup .actions {
+        display: none;
+      }
+      .services { gap: 8px; }
+      .service { padding: 12px; }
+      .service h3 {
+        margin-bottom: 7px;
+        font-size: 16px;
+      }
+      .service p {
+        font-size: 12px;
+        line-height: 1.28;
+      }
+      .service .number {
+        margin-top: 8px;
+        font-size: 22px;
+      }
+      .offers-layout { gap: 8px; }
+      .offer-card,
+      .offer-form {
+        padding: 12px;
+      }
+      .offer-card h3,
+      .offer-form h3 {
+        font-size: 17px;
+      }
+      .offer-meta,
+      .offer-note,
+      .offer-form p {
+        display: none;
+      }
+      .offer-card p {
+        font-size: 12px;
+        line-height: 1.35;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+      label { font-size: 11px; }
+      input,
+      select,
+      textarea {
+        padding: 8px 9px;
+        font-size: 12px;
+      }
+      textarea { min-height: 58px; }
+      .form-submit {
+        min-height: 38px;
+        margin-top: 8px;
+      }
+      .flow { gap: 6px; }
+      .step {
+        grid-template-columns: 32px 1fr;
+        gap: 8px;
+        padding: 8px;
+      }
+      .step::before {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+      }
+      .step strong {
+        margin-bottom: 2px;
+        font-size: 13px;
+      }
+      .step span {
+        font-size: 12px;
+        line-height: 1.28;
+      }
+      .contact-panel { gap: 8px; }
+      .contact-card {
+        min-height: auto;
+        padding: 14px;
+      }
+      .contact-heading {
+        gap: 0;
+        margin-bottom: 10px;
+      }
+      .contact-icon { display: none; }
+      .contact-card h3 {
+        margin-bottom: 10px;
+        font-size: 18px;
+      }
+      .contact-card p,
+      .contact-card a {
+        margin-bottom: 6px;
+        font-size: 12px;
+        line-height: 1.35;
+      }
+      .footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+    <symbol id="icon-mail" viewBox="0 0 24 24">
+      <path d="M4 6h16v12H4z" />
+      <path d="m4 7 8 6 8-6" />
+    </symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <path d="m5 12 4 4L19 6" />
+    </symbol>
+    <symbol id="icon-balance" viewBox="0 0 24 24">
+      <path d="M12 4v16" />
+      <path d="M6 7h12" />
+      <path d="m6 7-3 6h6z" />
+      <path d="m18 7-3 6h6z" />
+      <path d="M8 20h8" />
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24">
+      <path d="M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" />
+      <path d="m9 12 2 2 4-5" />
+    </symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24">
+      <path d="M7 3h7l4 4v14H7z" />
+      <path d="M14 3v5h5" />
+      <path d="M9 13h6" />
+      <path d="M9 17h6" />
+    </symbol>
+    <symbol id="icon-key" viewBox="0 0 24 24">
+      <path d="M14 8a4 4 0 1 0 2 3.46L22 5.5V3h-2.5L17 5.5h-2z" />
+      <path d="M7 12h.01" />
+    </symbol>
+    <symbol id="icon-home" viewBox="0 0 24 24">
+      <path d="M4 11 12 4l8 7" />
+      <path d="M6 10v10h12V10" />
+      <path d="M10 20v-6h4v6" />
+    </symbol>
+    <symbol id="icon-handshake" viewBox="0 0 24 24">
+      <path d="m8 12 3-3 4 4 1-1a3 3 0 0 1 4 0" />
+      <path d="m2 12 4-4 5 5-4 4z" />
+      <path d="m14 16 2 2a2 2 0 0 0 3-3l-1-1" />
+      <path d="m11 19 1 1a2 2 0 0 0 3-3" />
+    </symbol>
+    <symbol id="icon-map" viewBox="0 0 24 24">
+      <path d="m8 18-5 3V6l5-3 8 3 5-3v15l-5 3z" />
+      <path d="M8 3v15" />
+      <path d="M16 6v15" />
+    </symbol>
+  </svg>
+  <div class="page">
+    <header class="topbar" aria-label="Horní navigace">
+      <a class="brand" href="#uvod" data-tab-link="uvod" aria-label="Reverse Reality - úvod">
+        <img src="https://petrpernica.cz/images/logo-bile.svg" alt="PERNICA &amp; Co., advokátní kancelář, s.r.o." />
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-name">Reverse Reality<span>realitní právo obráceně</span></span>
+      </a>
+
+      <nav class="tabs" aria-label="Záložky webu">
+        <button class="tab active" type="button" data-tab="uvod">Úvod</button>
+        <button class="tab" type="button" data-tab="proc">Proč</button>
+        <button class="tab" type="button" data-tab="sluzby">Služby</button>
+        <button class="tab" type="button" data-tab="nabidky">Nabídky</button>
+        <button class="tab" type="button" data-tab="postup">Postup</button>
+        <button class="tab" type="button" data-tab="kontakt">Kontakt</button>
+      </nav>
+
+      <a class="contact-small" href="mailto:advokat@petrpernica.cz?subject=Reverse%20Reality">Napište nám<svg class="icon"><use href="#icon-mail"></use></svg></a>
+    </header>
+
+    <main class="stage" aria-live="polite">
+      <section class="panel active" id="uvod" aria-label="Úvod">
+        <div>
+          <p class="eyebrow">PERNICA &amp; Co., advokátní kancelář, s.r.o. představuje</p>
+          <h1>Reverse Reality</h1>
+          <p class="lead">Reality, ale obráceně. Nestojíme na straně realitní kanceláře, ale na straně klienta, který prodává nebo kupuje nemovitost.</p>
+          <p class="text">Hlídáme, aby realitní transakce byla právně bezpečná, srozumitelná a férová. Pomůžeme s výběrem vhodné realitní kanceláře, nastavíme smluvní dokumentaci, zajistíme advokátní úschovu a pohlídáme celý právní průběh převodu.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="mailto:advokat@petrpernica.cz?subject=Reverse%20Reality">Chci právní doprovod<svg class="icon"><use href="#icon-mail"></use></svg></a>
+            <button class="btn btn-secondary" type="button" data-tab="postup">Jak to funguje<svg class="icon"><use href="#icon-arrow"></use></svg></button>
+          </div>
+        </div>
+        <aside class="visual-card" aria-label="Princip služby">
+          <figure class="card-photo" aria-hidden="true">
+            <img src="assets/ChatGPT Image 10. 7. 2026 14_39_23 (6).png" alt="" />
+          </figure>
+          <div class="card-label">Princip služby</div>
+          <div class="card-title">Realitka řeší obchod. My hlídáme právo.</div>
+          <p class="card-text">Reverse Reality propojuje realitní servis s advokátním dohledem tak, aby smlouvy chránily skutečné strany transakce, ne jen zprostředkovatele.</p>
+          <div class="mini-list">
+            <div class="mini-item"><span class="mini-icon"><svg class="icon"><use href="#icon-check"></use></svg></span>žádné slepé copy-paste vzory</div>
+            <div class="mini-item"><span class="mini-icon"><svg class="icon"><use href="#icon-balance"></use></svg></span>férové podmínky pro prodávající i kupující</div>
+            <div class="mini-item"><span class="mini-icon"><svg class="icon"><use href="#icon-shield"></use></svg></span>advokátní úschova a bezpečný převod</div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel" id="proc" aria-label="Proč Reverse Reality">
+        <div>
+          <p class="eyebrow">Proč jsme službu vytvořili</p>
+          <h2>Protože smlouvy nemají být jen formalita.</h2>
+          <p class="text">Na realitním trhu je mnoho poskytovatelů a mnoho transakcí se řeší přes univerzální vzory. Jenže prodej ani koupě nemovitosti nejsou univerzální. Každý případ má jiný právní stav, jiné financování, jiné vady, jiné lhůty a jiná rizika.</p>
+          <p class="text">Když dokumentace neodpovídá konkrétní situaci, vznikají zbytečné spory. Smluvní pokuty mohou být nepřiměřené, rezervační smlouva může chránit hlavně realitní kancelář a kupní smlouva nemusí dobře řešit předání, úschovu, katastr ani odpovědnost za vady.</p>
+        </div>
+        <div class="tiles">
+          <article class="tile"><span class="tile-icon"><svg class="icon"><use href="#icon-balance"></use></svg></span><strong>Férovost</strong><p>Nastavujeme podmínky tak, aby dávaly smysl pro prodávajícího i kupujícího.</p></article>
+          <article class="tile"><span class="tile-icon"><svg class="icon"><use href="#icon-shield"></use></svg></span><strong>Právní bezpečí</strong><p>Kontrolujeme smlouvy, úschovu, katastrální postup i návaznost jednotlivých kroků.</p></article>
+          <article class="tile"><span class="tile-icon"><svg class="icon"><use href="#icon-file"></use></svg></span><strong>Transparentnost</strong><p>Klient ví, co podepisuje, proč to podepisuje a jaká rizika tím přebírá.</p></article>
+          <article class="tile"><span class="tile-icon"><svg class="icon"><use href="#icon-handshake"></use></svg></span><strong>Spolupráce</strong><p>Pracujeme s realitkami, které chtějí transakce dělat dobře, ne jen rychle.</p></article>
+        </div>
+      </section>
+
+      <section class="panel" id="sluzby" aria-label="Služby">
+        <div>
+          <p class="eyebrow">Co umíme zajistit</p>
+          <h2>Jedna služba podle toho, na které straně stojíte.</h2>
+          <p class="text">Reverse Reality není další realitní kancelář. Je to advokátní doprovod pro klienty, kteří chtějí nemovitost prodat, koupit nebo si jen ověřit, že realitní dokumentace odpovídá jejich situaci.</p>
+        </div>
+        <div class="services">
+          <article class="service">
+            <div><span class="service-icon"><svg class="icon"><use href="#icon-home"></use></svg></span><h3>Chci prodat</h3><p>Doporučíme vhodnou realitní kancelář, zkontrolujeme zprostředkovatelskou a rezervační dokumentaci, nastavíme kupní smlouvu a pohlídáme úschovu i převod.</p></div>
+            <div class="number">01</div>
+          </article>
+          <article class="service">
+            <div><span class="service-icon"><svg class="icon"><use href="#icon-key"></use></svg></span><h3>Chci koupit</h3><p>Prověříme právní rizika, vysvětlíme závazky z rezervace, upravíme smlouvy a ohlídáme, aby peníze i vlastnické právo přešly bezpečně.</p></div>
+            <div class="number">02</div>
+          </article>
+          <article class="service">
+            <div><span class="service-icon"><svg class="icon"><use href="#icon-handshake"></use></svg></span><h3>Jsem realitka</h3><p>Pokud chcete transakce dělat transparentně, pomůžeme s právním zázemím, férovými vzory a advokátním servisem pro konkrétní případy.</p></div>
+            <div class="number">03</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" id="nabidky" aria-label="Nabídky pro realitní kanceláře">
+        <div class="offers-layout">
+          <div class="offers-intro">
+            <div>
+              <p class="eyebrow">Poptávky pro realitní kanceláře</p>
+              <h2>My poptáváme. Realitky podávají nabídku.</h2>
+            </div>
+            <p class="text">Reverse Reality může fungovat jako přehledné rozhraní pro výběr realitní kanceláře. My za klienta vyvěsíme poptávku služeb realitní kanceláře, realitky na ni odpoví jednotným formulářem a klient dostane srovnatelné nabídky.</p>
+          </div>
+
+          <form class="offer-form" id="offer-form" action="mailto:advokat@peterpernice.cz?subject=Reverse%20Reality%20-%20nab%C3%ADdka%20realitn%C3%AD%20kancel%C3%A1%C5%99e" method="post" enctype="text/plain">
+            <h3>Reakce realitní kanceláře</h3>
+            <p>Vyberte vyhlášenou poptávku a pošlete nám základní nabídku spolupráce.</p>
+            <div class="form-grid">
+              <div class="field field-wide">
+                <label for="offer-select">Reaguji na poptávku</label>
+                <select id="offer-select" name="Reaguji na poptávku" required>
+                  <option value="Poptávka 01: Prodej bytu 3+kk v Brně">Poptávka 01: Prodej bytu 3+kk v Brně</option>
+                  <option value="Poptávka 02: Prodej rodinného domu u Brna">Poptávka 02: Prodej rodinného domu u Brna</option>
+                  <option value="Poptávka 03: Prodej komerční jednotky">Poptávka 03: Prodej komerční jednotky</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="agency-name">Název realitní kanceláře</label>
+                <input id="agency-name" name="Název realitní kanceláře" type="text" autocomplete="organization" required />
+              </div>
+              <div class="field">
+                <label for="agency-person">Kontaktní osoba</label>
+                <input id="agency-person" name="Kontaktní osoba" type="text" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="agency-email">E-mail</label>
+                <input id="agency-email" name="E-mail" type="email" autocomplete="email" required />
+              </div>
+              <div class="field">
+                <label for="agency-phone">Telefon</label>
+                <input id="agency-phone" name="Telefon" type="tel" autocomplete="tel" />
+              </div>
+              <div class="field field-wide">
+                <label for="agency-terms">Návrh spolupráce a odměny</label>
+                <input id="agency-terms" name="Návrh spolupráce a odměny" type="text" placeholder="provize, rozsah služeb, odhad postupu" />
+              </div>
+              <div class="field field-wide">
+                <label for="agency-message">Obsah nabídky</label>
+                <textarea id="agency-message" name="Obsah nabídky" placeholder="Popište zkušenost s obdobnou transakcí, navržený postup, marketing, podmínky a další důležité informace." required></textarea>
+              </div>
+            </div>
+            <button class="btn form-submit" type="submit">Odeslat nabídku e-mailem<svg class="icon"><use href="#icon-mail"></use></svg></button>
+          </form>
+
+          <div class="offer-section-title">
+            <h3>Vyhlášené poptávky</h3>
+            <p>Realitní kancelář reaguje jen na poptávky uvedené níže. Tlačítko u dlaždice automaticky vybere správnou poptávku ve formuláři.</p>
+          </div>
+
+          <div class="offer-list">
+            <article class="offer-card">
+              <div>
+                <p class="eyebrow">Poptávka 01</p>
+                <h3>Prodej bytu 3+kk v Brně</h3>
+                <div class="offer-meta">
+                  <span class="offer-tag">byt</span>
+                  <span class="offer-tag">Brno</span>
+                  <span class="offer-tag">prodej</span>
+                </div>
+                <p>Klient zvažuje prodej bytu 3+kk v širším centru Brna. Poptáváme návrh realitního servisu, marketingu, odhadu ceny a férových podmínek zprostředkování.</p>
+              </div>
+              <div>
+                <div class="offer-note">Očekáváme návrh strategie prodeje, orientační časový plán a jasné vymezení odměny.</div>
+                <button class="btn offer-action" type="button" data-offer-value="Poptávka 01: Prodej bytu 3+kk v Brně">Podat nabídku<svg class="icon"><use href="#icon-arrow"></use></svg></button>
+              </div>
+            </article>
+
+            <article class="offer-card">
+              <div>
+                <p class="eyebrow">Poptávka 02</p>
+                <h3>Prodej rodinného domu u Brna</h3>
+                <div class="offer-meta">
+                  <span class="offer-tag">dům</span>
+                  <span class="offer-tag">okolí Brna</span>
+                  <span class="offer-tag">právní dohled</span>
+                </div>
+                <p>Klient připravuje prodej rodinného domu v dojezdové vzdálenosti od Brna. Hledáme realitní kancelář se zkušeností s prezentací domů a koordinací prohlídek.</p>
+              </div>
+              <div>
+                <div class="offer-note">Zajímá nás způsob nacenění, marketing nemovitosti a komunikace s vážnými zájemci.</div>
+                <button class="btn offer-action" type="button" data-offer-value="Poptávka 02: Prodej rodinného domu u Brna">Podat nabídku<svg class="icon"><use href="#icon-arrow"></use></svg></button>
+              </div>
+            </article>
+
+            <article class="offer-card">
+              <div>
+                <p class="eyebrow">Poptávka 03</p>
+                <h3>Prodej komerční jednotky</h3>
+                <div class="offer-meta">
+                  <span class="offer-tag">komerce</span>
+                  <span class="offer-tag">investiční kupující</span>
+                  <span class="offer-tag">due diligence</span>
+                </div>
+                <p>Klient chce prověřit možnosti prodeje menší komerční jednotky. Poptáváme realitní servis se zkušeností s investičními zájemci a transparentní dokumentací.</p>
+              </div>
+              <div>
+                <div class="offer-note">Nabídka by měla popsat práci s databází investorů, prezentaci výnosu a postup prohlídek.</div>
+                <button class="btn offer-action" type="button" data-offer-value="Poptávka 03: Prodej komerční jednotky">Podat nabídku<svg class="icon"><use href="#icon-arrow"></use></svg></button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="postup" aria-label="Jak to funguje">
+        <div>
+          <p class="eyebrow">Jak to funguje</p>
+          <h2>Jednoduše. Prakticky. Bez zbytečných překvapení.</h2>
+          <p class="text">Na začátku potřebujeme vědět, jestli prodáváte, kupujete, nebo už máte před sebou konkrétní smlouvu. Podle toho navrhneme rozsah právního doprovodu a zapojíme se tam, kde to má pro transakci největší smysl.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="mailto:advokat@petrpernica.cz?subject=Reverse%20Reality%20-%20konzultace">Domluvit konzultaci<svg class="icon"><use href="#icon-mail"></use></svg></a>
+          </div>
+        </div>
+        <div class="flow">
+          <div class="step"><div><strong>Popíšete záměr</strong><span>Prodej, koupě, rezervace, kontrola smlouvy nebo kompletní doprovod.</span></div></div>
+          <div class="step"><div><strong>Navrhneme postup</strong><span>Řekneme, co je potřeba řešit hned a co počká do další fáze.</span></div></div>
+          <div class="step"><div><strong>Zapojíme realitku</strong><span>Doporučíme spolupracující kancelář nebo nastavíme pravidla s tou stávající.</span></div></div>
+          <div class="step"><div><strong>Připravíme smlouvy</strong><span>Rezervace, zprostředkování, kupní smlouva, úschova, katastr.</span></div></div>
+          <div class="step"><div><strong>Dohlédneme na převod</strong><span>Hlídáme návaznost plateb, podpisů, vkladu do katastru a předání.</span></div></div>
+        </div>
+      </section>
+
+      <section class="panel" id="kontakt" aria-label="Kontakt">
+        <div>
+          <p class="eyebrow">Ozvěte se</p>
+          <h2>Prodáváte, kupujete nebo máte smlouvu k podpisu?</h2>
+          <p class="lead">Pošlete nám základní informace. Řekneme vám, co je potřeba prověřit a jaký rozsah právního doprovodu dává smysl.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="mailto:advokat@petrpernica.cz?subject=Reverse%20Reality">advokat@petrpernica.cz<svg class="icon"><use href="#icon-mail"></use></svg></a>
+            <a class="btn btn-secondary" href="tel:+420728783904">+420 728 783 904</a>
+          </div>
+        </div>
+        <div class="contact-panel">
+          <article class="contact-card">
+            <div class="contact-heading"><span class="contact-icon"><svg class="icon"><use href="#icon-map"></use></svg></span><h3 class="office-name">PERNICA &amp; Co., advokátní kancelář, s.r.o.</h3></div>
+            <p>Moravské nám. 127/3<br>602 00 Brno</p>
+            <p>IČO: 24357880<br>Ev. č. ČAK 16415</p>
+          </article>
+          <article class="contact-card dark">
+            <div class="contact-heading"><span class="contact-icon"><svg class="icon"><use href="#icon-shield"></use></svg></span><h3>Reverse Reality</h3></div>
+            <p>Právní doprovod při realitní transakci od prvního návrhu až po katastr a předání nemovitosti.</p>
+            <p><a href="mailto:advokat@petrpernica.cz?subject=Reverse%20Reality">Napište nám e-mail →</a></p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span><strong>Reverse Reality</strong> · realitní právo obráceně</span>
+      <span>© PERNICA &amp; Co., advokátní kancelář, s.r.o.</span>
+    </footer>
+  </div>
+
+  <script>
+    const tabs = [...document.querySelectorAll('[data-tab]')];
+    const panels = [...document.querySelectorAll('.panel')];
+    const tabLinks = [...document.querySelectorAll('[data-tab-link]')];
+    const offerButtons = [...document.querySelectorAll('[data-offer-value]')];
+    const offerForm = document.querySelector('#offer-form');
+    const offerSelect = document.querySelector('#offer-select');
+
+    function activateTab(id) {
+      tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === id));
+      panels.forEach(panel => panel.classList.toggle('active', panel.id === id));
+      if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => activateTab(tab.dataset.tab)));
+    tabLinks.forEach(link => link.addEventListener('click', event => {
+      event.preventDefault();
+      activateTab(link.dataset.tabLink);
+    }));
+    offerButtons.forEach(button => button.addEventListener('click', () => {
+      if (offerSelect) offerSelect.value = button.dataset.offerValue;
+      offerForm?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.setTimeout(() => offerSelect?.focus(), 360);
+    }));
+
+    window.addEventListener('keydown', event => {
+      const activeIndex = tabs.findIndex(tab => tab.classList.contains('active'));
+      if (event.key === 'ArrowRight') activateTab(tabs[(activeIndex + 1) % tabs.length].dataset.tab);
+      if (event.key === 'ArrowLeft') activateTab(tabs[(activeIndex - 1 + tabs.length) % tabs.length].dataset.tab);
+    });
+
+    const initial = location.hash.replace('#', '');
+    if (initial && panels.some(panel => panel.id === initial)) activateTab(initial);
+  </script>
+</body>
+</html>
